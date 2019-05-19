@@ -156,7 +156,7 @@
   <ItemGroup>
     <ClInclude Include="Bonds.h" />
     <ClInclude Include="MarketBase.h" />
-    <ClInclude Include="OwnerBase.h" />
+    <ClInclude Include="Owner.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Securities.h" />
     <ClInclude Include="Stocks.h" />
@@ -165,7 +165,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Bonds.cpp" />
     <ClCompile Include="MarketBase.cpp" />
-    <ClCompile Include="OwnerBase.cpp" />
+    <ClCompile Include="Owner.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

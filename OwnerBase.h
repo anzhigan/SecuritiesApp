@@ -7,12 +7,9 @@
 
 class OwnerBase
 {
-private:
-	vector<Securities> ownerSecuritiesBase;
+private: 
 public:
 	OwnerBase();
 	~OwnerBase();
-	void insertOwnerSecuritiesBase(MarketBase mb);
-	void showOwnerSecuritiesBase();
 };
 

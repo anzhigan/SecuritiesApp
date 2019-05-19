@@ -1,58 +1,99 @@
 #include "pch.h"
 #include <iostream>
+#include "Owner.h"
 #include "MarketBase.h"
 #include "OwnerBase.h"
 #include <boost\variant.hpp>
+#include <list>
+#include <string>
 using namespace std;
 
-void SW(int num, OwnerBase ob, MarketBase mb, bool scan) {
+Owner createOwner() {
+	string name;
+	string pass;
+	Owner owner;
+
+	cout << "Enter name:\n";
+	cin >> name;
+	owner.setName(name);
+
+	cout << "Enter password:\n";
+	cin >> pass;
+	owner.setPassword(pass);
+
+	cout << "Registration completed successfully!\n";
+
+	return owner;
+}
+
+Owner login(vector<Owner>& ownerList) {
+	string password;
+	string name;
+
+Enterlogin:
+	cout << "Enter your name:\n";
+	cin >> name;
+	cout << "Enter your password:\n";
+	cin >> password;
+
+	for (Owner o : ownerList) {
+		if ((password == o.getPassword()) && (name == o.getName())) {
+			cout << "Successfully!\n";
+			return o;
+		}
+		else {
+			cout << "Not successfully! Return\n" << endl;
+			goto Enterlogin;
+		}
+	}
+}
+
+void SW(vector<Owner>& pOwnerList, int num) {
 	switch (num)
 	{
 	case 1:
-		ob.showOwnerSecuritiesBase();
+		if (!pOwnerList.empty()) {
+			login(pOwnerList).ownerMain();
+		}
+		else {
+			cout << "Owner List is empty\n";
+		}
 		break;
 	case 2:
-		cout << endl << "Market Base: " << endl;
-		mb.showMarketStockBase();
-		mb.showMarketBondsBase();
+		pOwnerList.push_back(createOwner());
 		break;
 	case 3:
-		ob.insertOwnerSecuritiesBase(mb);
-		ob.showOwnerSecuritiesBase();
-		break;
-	case 4:
-		mb.insertYourselfMarketBase();
-		break;
-	case 5:
-		mb.updateMarketBase();
-	case 6:
-		//scan = false;
+		if (!pOwnerList.empty()) {
+			cout << "Owner:\n";
+			for (Owner o : pOwnerList) {
+				cout << o.getName() << endl;
+			}
+		}
+		else {
+			cout << "Owner List is empty\n";
+		}
 		break;
 	default:
-		scan = true;
+		cout << "Not right!, return\n";
+		break;
 	}
 }
 
 int main() {
-	MarketBase mb;
-	OwnerBase ob;
+	vector<Owner> ownerList;
 	int num;
-	
-	cout << "Hello!" << endl
-		<< "Please select button:" << endl
-		<< "1 - show my Portfolio" << endl
-		<< "2 - show Market" << endl
-		<< "3 - insert Securities in Portfolio" << endl
-		<< "4 - insert Yourself Securities in Market" << endl
-		<< "5 - update price" << endl
-		<< "6 - End" << endl;
-	cin >> num;
-	
+
 	bool scan = true;
-	while(scan)
+	while (scan)
 	{
-		SW(num, ob, mb, scan);
+		cout << endl
+			<< "Hello!" << endl
+			<< "Please select button:" << endl
+			<< "1 - login" << endl
+			<< "2 - sign in" << endl
+			<< "3 - Show all owner\n" << endl;
+		cin >> num;
+		SW(ownerList, num);
 	};
-	system("pause");
 }
 

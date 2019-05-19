@@ -14,32 +14,28 @@ MarketBase::~MarketBase()
 void MarketBase::defaultInsertMarketSecutitiesBase() 
 {
 	for (int i = 0; i < 10; ++i) {
-		const int price = rand() % 999999;
-		//const int len = rand() % 7;
+		const int price = rand() % 9999999;
 		const int len = 5;
 		char name[len];
 		//заполним объявленные выше переменные рандомными значениями
 		gen_randomString(name, len);
 
 		//создаем цб и кидаем туда рандомные значения
-		Stocks s;
-		s.setName(name);
-		s.setPrice(price);
-		marketStocksBase.push_back(s);
+		marketStocksBase[i] = new Stocks;
+		marketStocksBase[i]->setName(name);
+		marketStocksBase[i]->setPrice(price);
 	}
 	for (int i = 0; i < 10; ++i) {
-		const int price = rand() % 90 - 110;
-		//const int len = rand() % 7;
+		const int price = rand() % 110 + 90;
 		const int len = 5;
 		char name[len];
 		//заполним объявленные выше переменные рандомными значениями
 		gen_randomString(name, len);
 
 		//создаем цб и кидаем туда рандомные значения
-		Bonds b;
-		b.setName(name);
-		b.setPrice(price);
-		marketBondsBase.push_back(b);
+		marketBondsBase[i] = new Bonds;
+		marketBondsBase[i]->setName(name);
+		marketBondsBase[i]->setPrice(price);
 	}
 }
 
@@ -53,66 +49,27 @@ void MarketBase::gen_randomString(char *name, const int len) {
 	}
 	name[len] = 0;
 }
-//Добавление своей цб на рынок
-
-
-void MarketBase::insertYourselfMarketBase()
-{	//Создаем ценную бумагу 
-	//и устанавливаем имя с цб
-	int num;
-	cout << "1)Stocks 2)Bonds";
-	cin >> num;
-	const int len = 5;
-	char name[len];
-	int price;
-	cout << "Enter name: ";
-	for (int i = 0; i < len; ++i) {
-		cin >> name[i];
-	}
-	cout << "Enter price: ";
-	cin >> price;
-
-	if (num == 1) {
-		Stocks s;
-
-		s.setName(name);
-		s.setPrice(price);
-
-		//Кидаем эту бумагу в базу на Рынок
-		marketStocksBase.push_back(s);
-	}
-	else if (num == 2) {
-
-		Bonds b;
-
-		b.setName(name);
-		b.setPrice(price);
-
-		//Кидаем эту бумагу в базу на Рынок
-		marketBondsBase.push_back(b);
-	}
-	
-}
-
-Stocks MarketBase::returnMarketStocksBase(int number)
+Stocks *MarketBase::returnMarketStocksBase(int number)
 {
 	return marketStocksBase[number];
 }
-Bonds MarketBase::returnMarketBondsBase(int number)
+Bonds *MarketBase::returnMarketBondsBase(int number)
 {
 	return marketBondsBase[number];
 }
 
 void MarketBase::updateMarketBase() {
 	for (int i = 0; i < 10; ++i) {
-		marketStocksBase[i].setPrice(
-			marketStocksBase[i].factor *
-			marketStocksBase[i].getPrice());
-		marketBondsBase[i].setPrice(
-			marketBondsBase[i].factor *
-			marketBondsBase[i].getPrice());
+		auto forStocks = marketStocksBase[i]->factor *
+			marketStocksBase[i]->getPrice(); 
+		auto forBonds = marketBondsBase[i]->factor *
+			marketBondsBase[i]->getPrice();
+
+		marketStocksBase[i]->setPrice(forStocks);
+		marketBondsBase[i]->setPrice(forBonds);
 	}
-} 
+	 
+}
 
 void MarketBase::showMarketStockBase()
 {
@@ -120,8 +77,8 @@ void MarketBase::showMarketStockBase()
 	for (int i = 0; i < 10; ++i) 
 	{
 		cout << i << " |name: ";
-		marketStocksBase[i].showName();
-		cout << " |price: " << marketStocksBase[i].getPrice() 
+		marketStocksBase[i]->showName();
+		cout << " |price: " << marketStocksBase[i]->getPrice() 
 			<< "$" <<endl;
 	}
 }
@@ -132,8 +89,8 @@ void MarketBase::showMarketBondsBase()
 	for (int i = 0; i < 10; ++i)
 	{
 		cout << i << " |name: ";
-		marketBondsBase[i].showName();
-		cout << " |value: " << marketBondsBase[i].getPrice()
+		marketBondsBase[i]->showName();
+		cout << " |value: " << marketBondsBase[i]->getPrice()
 			<< "%" << endl;
 	}
 }

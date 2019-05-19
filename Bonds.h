@@ -5,7 +5,7 @@ class Bonds :
 {
 public:
 	const string TYPE = "BOND";
-	float factor = rand() % 1;
+	double factor = rand() % 2 + 0.8;
 	Bonds();
 	~Bonds();
 };

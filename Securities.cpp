@@ -30,7 +30,7 @@ char* Securities::getName() {
 
 int Securities::getPrice()
 {
-	return this->price;
+	return price;
 }
 
 void Securities::showName()

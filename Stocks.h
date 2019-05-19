@@ -5,7 +5,7 @@ class Stocks :
 {
 public:
 	const string TYPE = "STOCKS";
-	float factor = rand() % 2;
+	double factor = rand() % 2 + 0.7;
 	Stocks();
 	~Stocks();
 };
