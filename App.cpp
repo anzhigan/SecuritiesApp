@@ -48,10 +48,10 @@ Enterlogin:
 	}
 }
 
-void SW(vector<Owner>& pOwnerList, int num) {
+bool SW(vector<Owner>& pOwnerList, char num) {
 	switch (num)
 	{
-	case 1:
+	case '1':
 		if (!pOwnerList.empty()) {
 			login(pOwnerList).ownerMain();
 		}
@@ -59,10 +59,10 @@ void SW(vector<Owner>& pOwnerList, int num) {
 			cout << "Owner List is empty\n";
 		}
 		break;
-	case 2:
+	case '2':
 		pOwnerList.push_back(createOwner());
 		break;
-	case 3:
+	case '3':
 		if (!pOwnerList.empty()) {
 			cout << "Owner:\n";
 			for (Owner o : pOwnerList) {
@@ -75,13 +75,15 @@ void SW(vector<Owner>& pOwnerList, int num) {
 		break;
 	default:
 		cout << "Not right!, return\n";
-		break;
+		break; 
+		bool scan = false;
+		return scan;
 	}
 }
 
 int main() {
 	vector<Owner> ownerList;
-	int num;
+	char num;
 
 	bool scan = true;
 	while (scan)
@@ -93,7 +95,7 @@ int main() {
 			<< "2 - sign in" << endl
 			<< "3 - Show all owner\n" << endl;
 		cin >> num;
-		SW(ownerList, num);
+		scan = SW(ownerList, num);
 	};
 }
 
